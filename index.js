@@ -3,30 +3,30 @@ const express = require('express')
 const app = express()
 // library to parse the data that come from the front end
 const bodyParser = require("body-parser");
+const cors = require('cors');
 // Port of the server
 const port = 4000
 
+app.use(cors())
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-const user = {
-  email: '',
-  name: '',
-  password: ''
-}
+const user = []
+
 
 // Endpoints
 app.post('/register', (req, res) => {
-  var userEmail = req.body.email;
-  var userName = req.body.name;
-  var password = req.body.password;
-  console.log("User saved!: /n the user mail is: " + userEmail + " /n Full name:" + userName + " /n password is " + password);
 
-  res.end("yes");
+  user.push(req.body.name);
+  user.push(req.body.email);
+  user.push(req.body.password);
+  user.join(", ")
+  res.send(user);
+
 })
 
 app.put('/login', (req, res) => {
-  res.send('Hello World!')
+  console.log(res)
 })
 
 app.listen(port, () => {
